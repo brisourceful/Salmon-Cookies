@@ -1,31 +1,104 @@
 'use strict';
 
-//This is an example of an object literal.
-var userFullName = prompt('Please enter your full name');
-var userEmail = prompt ('Please enter your email');
-
-var myUser = {
-  fullName: userFullName,
-  email: userEmail,
-  login: function(){
-    console.log(this.fullName + ' has now logged in!');
+var firstAndPike = {
+  cookieArray: [],
+  minCust: 23,
+  maxCust: 65,
+  avgCookieSale: 6.3,
+  businessHours: 15,
+  genRandomNumCustHour: function() {
+    return Math.floor(Math.random() * (this.maxCust + 1 - this.minCust)) + this.minCust;
+  },
+  cookiesPerHour: function () {
+    for (var i = 0; i < 15; i++){
+      this.cookieArray.push(Math.floor(this.genRandomNumCustHour() * this.avgCookieSale)); //the array you want the data to push and then the data you want to push into the array//
+    }
+    return this.cookieArray;
   }
 };
 
-//Adding a property outside the object. Use variable then "." then key.
-// myUser.email = 'eaoueou@gmail.com';
+var cookieDataEl = document.getElementById('header');
+var arrayEl = document.createElement('p');
+arrayEl.textContent = firstAndPike.cookieArray;
+cookieDataEl.appendChild(arrayEl);
 
-console.log('------------------ New User--------------'); //Creates nice separation in the console log.
-console.log(myUser);
+// var userHeadingEl = document.getElementById('first-user-heading'); // Step 1
+// userHeadingEl.textContent = myUser.fullName; // Step 2
 
-myUser.login();
+//
+// var seaTacAirport = {
+//   minCust: 3,
+//   maxCust: 24,
+//   avgCookieSale: 1.2
+// };
+//
+// var seattleCenter = {
+//   minCust: 11,
+//   maxCust: 38,
+//   avgCookieSale: 3.7
+// };
+//
+// var capitolHill = {
+//   minCust: 20,
+//   maxCust: 38,
+//   avgCookieSale: 2.3
+// };
+//
+// var alki = {
+//   minCust: 2,
+//   maxCust: 16,
+//   avgCookieSale: 4.6
+// };
 
-console.log('_____________PRESENT ELEMENTS!________________');
-
-var userHeadingEl = document.getElementById('first-user-heading'); // Step 1
-userHeadingEl.textContent = myUser.fullName; // Step 2
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// //This is an example of an object literal.
+// var userFullName = prompt('Please enter your full name');
+// var userEmail = prompt ('Please enter your email');
+//
+// var myUser = {
+//   fullName: userFullName,
+//   email: userEmail,
+//   login: function(){
+//     console.log(this.fullName + ' has now logged in!');
+//   }
+// };
+//
+// //Adding a property outside the object. Use variable then "." then key.
+// // myUser.email = 'eaoueou@gmail.com';
+//
+// console.log('------------------ New User--------------'); //Creates nice separation in the console log.
+// console.log(myUser);
+//
+// myUser.login();
+//
+// console.log('_____________PRESENT ELEMENTS!________________');
+//
+// var userHeadingEl = document.getElementById('first-user-heading'); // Step 1
+// userHeadingEl.textContent = myUser.fullName; // Step 2
+//
+//
 // var userElement = document.createElement('h1'); //Step 1 - Create element or access the element for the DOM.
 // // userElement = <h1></h1>
 //
