@@ -63,6 +63,7 @@ for (var k = 0; k < seaTacAirport.businessHours.length; k++) {
 };
 
 var seattleCenter = {
+  cookieArray: [],
   nameOfLocation: 'Seattle Center',
   businessHours: ['6am','7am','8am','9am','10am','11am','12pm','01pm','02pm','03pm','04pm','05pm','06pm','07pm','08pm'],
   minCust: 11,
@@ -83,6 +84,14 @@ var seattleCenter = {
 
 seattleCenter.cookiesPerHour();
 
+for (var l = 0; l < seattleCenter.businessHours.length; l++) {
+  var cookieDataEl = document.getElementById('SeaCenterData');
+  var arrayEl = document.createElement('li');
+  console.log(cookieDataEl);
+  arrayEl.textContent = seattleCenter.businessHours[l];
+  console.log(arrayEl);
+  cookieDataEl.appendChild(arrayEl);
+};
 
 var capitolHill = {
   minCust: 20,
