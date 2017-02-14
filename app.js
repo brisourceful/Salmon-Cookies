@@ -1,77 +1,80 @@
 'use strict';
 
 var firstAndPike = {
+  nameOfLocation: 'First and Pike',
   cookieArray: [],
+  businessHours: ['6am','7am','8am','9am','10am','11am','12pm','01pm','02pm','03pm','04pm','05pm','06pm','07pm','08pm'],
   minCust: 23,
   maxCust: 65,
   avgCookieSale: 6.3,
-  businessHours: 15,
+  //Method to generate random number of customers per hour.
   genRandomNumCustHour: function() {
     return Math.floor(Math.random() * (this.maxCust + 1 - this.minCust)) + this.minCust;
   },
+  //Calculation for cookies purchased each hours using avgCookieSale * genRandomNumCustHour.
   cookiesPerHour: function () {
+    //
     for (var i = 0; i < 15; i++){
-      this.cookieArray.push(Math.floor(this.genRandomNumCustHour() * this.avgCookieSale)); //the array you want the data to push and then the data you want to push into the array//
+      this.cookieArray.push(Math.ceil(this.genRandomNumCustHour() * this.avgCookieSale)); //the array you want the data to push and then the data you want to push into the array//
+      this.businessHours[i] += ': ' + this.cookieArray[i];
     }
-    return this.cookieArray;
   }
 };
 
-var cookieDataEl = document.getElementById('header');
-var arrayEl = document.createElement('p');
-arrayEl.textContent = firstAndPike.cookieArray;
-cookieDataEl.appendChild(arrayEl);
+firstAndPike.cookiesPerHour();
 
-// var userHeadingEl = document.getElementById('first-user-heading'); // Step 1
-// userHeadingEl.textContent = myUser.fullName; // Step 2
-
-//
-// var seaTacAirport = {
-//   minCust: 3,
-//   maxCust: 24,
-//   avgCookieSale: 1.2
-// };
-//
-// var seattleCenter = {
-//   minCust: 11,
-//   maxCust: 38,
-//   avgCookieSale: 3.7
-// };
-//
-// var capitolHill = {
-//   minCust: 20,
-//   maxCust: 38,
-//   avgCookieSale: 2.3
-// };
-//
-// var alki = {
-//   minCust: 2,
-//   maxCust: 16,
-//   avgCookieSale: 4.6
-// };
+for (var j = 0; j < firstAndPike.businessHours.length; j++) {
+  var cookieDataEl = document.getElementById('OnePikeData');
+  var arrayEl = document.createElement('li');
+  console.log(cookieDataEl);
+  arrayEl.textContent = firstAndPike.businessHours[j];
+  console.log(arrayEl);
+  cookieDataEl.appendChild(arrayEl);
+};
 
 
 
+var seaTacAirport = {
+  nameOfLocation: 'SeaTac Airport',
+  businessHours: ['6am','7am','8am','9am','10am','11am','12pm','01pm','02pm','03pm','04pm','05pm','06pm','07pm','08pm'],
+  minCust: 3,
+  maxCust: 24,
+  avgCookieSale: 1.2,
+//Method to generate random number of customers per hour.
+  genRandomNumCustHour: function() {
+    return Math.floor(Math.random() * (this.maxCust + 1 - this.minCust)) + this.minCust;
+  },
+//Calculation for cookies purchased each hours using avgCookieSale * genRandomNumCustHour.
+  cookiesPerHour: function () {
+  //
+    for (var i = 0; i < 15; i++){
+      this.cookieArray.push(Math.ceil(this.genRandomNumCustHour() * this.avgCookieSale)); //the array you want the data to push and then the data you want to push into the array//
+      this.businessHours[i] += ': ' + this.cookieArray[i];
+    }
+  }
+};
+
+seaTacAirport.cookiesPerHour();
 
 
 
+var seattleCenter = {
+  minCust: 11,
+  maxCust: 38,
+  avgCookieSale: 3.7
+};
 
+var capitolHill = {
+  minCust: 20,
+  maxCust: 38,
+  avgCookieSale: 2.3
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var alki = {
+  minCust: 2,
+  maxCust: 16,
+  avgCookieSale: 4.6
+};
 
 // //This is an example of an object literal.
 // var userFullName = prompt('Please enter your full name');

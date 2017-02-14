@@ -1,3 +1,4 @@
-#first-user-heading {
+#header {
   color: purple;
+  display: inline-block;
 }
