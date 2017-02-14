@@ -94,17 +94,66 @@ for (var l = 0; l < seattleCenter.businessHours.length; l++) {
 };
 
 var capitolHill = {
+  cookieArray: [],
+  nameOfLocation: 'Capitol Hill',
+  businessHours: ['6am','7am','8am','9am','10am','11am','12pm','01pm','02pm','03pm','04pm','05pm','06pm','07pm','08pm'],
   minCust: 20,
   maxCust: 38,
-  avgCookieSale: 2.3
+  avgCookieSale: 2.3,
+//Method to generate random number of customers per hour.
+  genRandomNumCustHour: function() {
+    return Math.floor(Math.random() * (this.maxCust + 1 - this.minCust)) + this.minCust;
+  },
+//Calculation for cookies purchased each hours using avgCookieSale * genRandomNumCustHour.
+  cookiesPerHour: function () {
+    for (var i = 0; i < 15; i++){
+      this.cookieArray.push(Math.ceil(this.genRandomNumCustHour() * this.avgCookieSale)); //the array you want the data to push and then the data you want to push into the array//
+      this.businessHours[i] += ': ' + this.cookieArray[i];
+    }
+  }
+};
+
+capitolHill.cookiesPerHour();
+
+for (var m = 0; m < seattleCenter.businessHours.length; m++) {
+  var cookieDataEl = document.getElementById('CapHillData');
+  var arrayEl = document.createElement('li');
+  console.log(cookieDataEl);
+  arrayEl.textContent = seattleCenter.businessHours[m];
+  console.log(arrayEl);
+  cookieDataEl.appendChild(arrayEl);
 };
 
 var alki = {
+  cookieArray: [],
+  nameOfLocation: 'Alki',
+  businessHours: ['6am','7am','8am','9am','10am','11am','12pm','01pm','02pm','03pm','04pm','05pm','06pm','07pm','08pm'],
   minCust: 2,
   maxCust: 16,
-  avgCookieSale: 4.6
+  avgCookieSale: 4.6,
+//Method to generate random number of customers per hour.
+  genRandomNumCustHour: function() {
+    return Math.floor(Math.random() * (this.maxCust + 1 - this.minCust)) + this.minCust;
+  },
+//Calculation for cookies purchased each hours using avgCookieSale * genRandomNumCustHour.
+  cookiesPerHour: function () {
+    for (var i = 0; i < 15; i++){
+      this.cookieArray.push(Math.ceil(this.genRandomNumCustHour() * this.avgCookieSale)); //the array you want the data to push and then the data you want to push into the array//
+      this.businessHours[i] += ': ' + this.cookieArray[i];
+    }
+  }
 };
 
+alki.cookiesPerHour();
+
+for (var n = 0; n < seattleCenter.businessHours.length; n++) {
+  var cookieDataEl = document.getElementById('AlkiData');
+  var arrayEl = document.createElement('li');
+  console.log(cookieDataEl);
+  arrayEl.textContent = seattleCenter.businessHours[n];
+  console.log(arrayEl);
+  cookieDataEl.appendChild(arrayEl);
+};
 // //This is an example of an object literal.
 // var userFullName = prompt('Please enter your full name');
 // var userEmail = prompt ('Please enter your email');
