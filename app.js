@@ -13,7 +13,6 @@ var firstAndPike = {
   },
   //Calculation for cookies purchased each hours using avgCookieSale * genRandomNumCustHour.
   cookiesPerHour: function () {
-    //
     for (var i = 0; i < 15; i++){
       this.cookieArray.push(Math.ceil(this.genRandomNumCustHour() * this.avgCookieSale)); //the array you want the data to push and then the data you want to push into the array//
       this.businessHours[i] += ': ' + this.cookieArray[i];
@@ -32,9 +31,8 @@ for (var j = 0; j < firstAndPike.businessHours.length; j++) {
   cookieDataEl.appendChild(arrayEl);
 };
 
-
-
 var seaTacAirport = {
+  cookieArray: [],
   nameOfLocation: 'SeaTac Airport',
   businessHours: ['6am','7am','8am','9am','10am','11am','12pm','01pm','02pm','03pm','04pm','05pm','06pm','07pm','08pm'],
   minCust: 3,
@@ -46,7 +44,6 @@ var seaTacAirport = {
   },
 //Calculation for cookies purchased each hours using avgCookieSale * genRandomNumCustHour.
   cookiesPerHour: function () {
-  //
     for (var i = 0; i < 15; i++){
       this.cookieArray.push(Math.ceil(this.genRandomNumCustHour() * this.avgCookieSale)); //the array you want the data to push and then the data you want to push into the array//
       this.businessHours[i] += ': ' + this.cookieArray[i];
@@ -56,13 +53,36 @@ var seaTacAirport = {
 
 seaTacAirport.cookiesPerHour();
 
-
+for (var k = 0; k < seaTacAirport.businessHours.length; k++) {
+  var cookieDataEl = document.getElementById('SeaTacData');
+  var arrayEl = document.createElement('li');
+  console.log(cookieDataEl);
+  arrayEl.textContent = seaTacAirport.businessHours[k];
+  console.log(arrayEl);
+  cookieDataEl.appendChild(arrayEl);
+};
 
 var seattleCenter = {
+  nameOfLocation: 'Seattle Center',
+  businessHours: ['6am','7am','8am','9am','10am','11am','12pm','01pm','02pm','03pm','04pm','05pm','06pm','07pm','08pm'],
   minCust: 11,
   maxCust: 38,
-  avgCookieSale: 3.7
+  avgCookieSale: 3.7,
+//Method to generate random number of customers per hour.
+  genRandomNumCustHour: function() {
+    return Math.floor(Math.random() * (this.maxCust + 1 - this.minCust)) + this.minCust;
+  },
+//Calculation for cookies purchased each hours using avgCookieSale * genRandomNumCustHour.
+  cookiesPerHour: function () {
+    for (var i = 0; i < 15; i++){
+      this.cookieArray.push(Math.ceil(this.genRandomNumCustHour() * this.avgCookieSale)); //the array you want the data to push and then the data you want to push into the array//
+      this.businessHours[i] += ': ' + this.cookieArray[i];
+    }
+  }
 };
+
+seattleCenter.cookiesPerHour();
+
 
 var capitolHill = {
   minCust: 20,
