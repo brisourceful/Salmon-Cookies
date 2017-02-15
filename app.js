@@ -7,11 +7,11 @@ function CookieStore (name, minCustomers, maxCustomers, avgCookies, hourlyCookie
   this.avgCookies = avgCookies;
   this.hourlyCookieCount = hourlyCookieCount || [];// assigning an empty array []
   this.totalCountForDay = 0;
-  this.businessHours = ['06am: ', '07am: ', '08am: ', '09am: ', '010am: ', '011am: ', '12pm: ', '01pm: ', '02pm: ', '03pm: ', '04pm: ', '05pm: ','06pm: ','07pm: ','08pm: '];
+  this.businessHours = ['07am ', '08am ', '09am ', '010am ', '011am ', '12pm ', '01pm ', '02pm ', '03pm ', '04pm ', '05pm ','06pm ','07pm ', '08pm '];
 }
 
 CookieStore.prototype.getAvgCookieCount = function () { // Add method with a prototype
-  for (var hours = 0; hours < 15; hours++) {
+  for (var hours = 0; hours < this.businessHours.length; hours++) {
     var avgCookiesPerhour = Math.floor(Math.random() * ((this.maxCustomers - this.minCustomers + 1) + this.minCustomers) * this.avgCookies);
     this.hourlyCookieCount.push(avgCookiesPerhour);
     this.totalCountForDay += avgCookiesPerhour;
@@ -34,10 +34,16 @@ var stores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
 var storeSalesDataEl = document.createElement('table');
 
-for (var row = 0; row < ;row++) { // Needed time from first store to display hours.
-  var timeRowEl = document.createElement('tr');
-  timeRowEl.textContent = firstAndPike.businessHours; // Needed time from first store to display hours.
-  storeSalesDataEl.appendChild(timeRowEl);
+var timeRowEl = document.createElement('tr');
+storeSalesDataEl.appendChild(timeRowEl);
+
+var blankCell = document.createElement('td');
+timeRowEl.appendChild(blankCell);
+
+for (var cell = 0; cell < firstAndPike.businessHours.length; cell++) { // Needed time from first store to display hours.
+  var timeHour = document.createElement('td');
+  timeHour.textContent = firstAndPike.businessHours[cell];
+  timeRowEl.appendChild(timeHour);
 }
 
 for (var storeIndex = 0; storeIndex < stores.length; storeIndex++) {
@@ -53,9 +59,11 @@ for (var storeIndex = 0; storeIndex < stores.length; storeIndex++) {
     cookieCountEl.textContent = stores[storeIndex].hourlyCookieCount[cookieData];
     tableRowEl.appendChild(cookieCountEl);
   }
+
+  var dailyLocationTotalEl = document.createElement('td');
+  dailyLocationTotalEl.textContent = firstAndPike.totalCountForDay;
+  tableRowEl.appendChild(dailyLocationTotalEl);
 }
-
-
 
 var sectionEl = document.getElementById('cookieTableSection');
 sectionEl.appendChild(storeSalesDataEl);
