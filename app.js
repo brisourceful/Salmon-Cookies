@@ -1,20 +1,20 @@
 'use strict';
 
-function CookieStore (name, minCustomers, maxCustomers, avgCookies, hourlyCount) { // this is a constructor function taking in 4 parameters.
+function CookieStore (name, minCustomers, maxCustomers, avgCookies, hourlyCookieCount) { // this is a constructor function taking in 4 parameters.
   this.name = name || 'Unknown'; // adding || (or) inputs a value if it doesn't meet true.
   this.minCustomers = minCustomers;  // the context of this is going to change. The keyword 'this' knows what it represents by the surrounding context
   this.maxCustomers = maxCustomers; // argument on the right is going into the parameter in the function.
   this.avgCookies = avgCookies;
-  this.hourlyCount = hourlyCount || [];// assigning an empty array []
-  this.totalCount = 0;
-  this.businessHours = ['06am: ', '07am: ', '08am: ', '09am: ', '010am: ', '011am: ', '12pm: ', '01pm: ', '02pm: ', '03pm: ', '04pm: ', '05pm: ','06pm: '];
+  this.hourlyCookieCount = hourlyCookieCount || [];// assigning an empty array []
+  this.totalCountForDay = 0;
+  this.businessHours = ['06am: ', '07am: ', '08am: ', '09am: ', '010am: ', '011am: ', '12pm: ', '01pm: ', '02pm: ', '03pm: ', '04pm: ', '05pm: ','06pm: ','07pm: ','08pm: '];
 }
 
 CookieStore.prototype.getAvgCookieCount = function () { // Add method with a prototype
   for (var hours = 0; hours < 15; hours++) {
     var avgCookiesPerhour = Math.floor(Math.random() * ((this.maxCustomers - this.minCustomers + 1) + this.minCustomers) * this.avgCookies);
-    this.hourlyCount.push(avgCookiesPerhour);
-    this.totalCount += avgCookiesPerhour;
+    this.hourlyCookieCount.push(avgCookiesPerhour);
+    this.totalCountForDay += avgCookiesPerhour;
   }
 };
 
@@ -31,6 +31,34 @@ capitolHill.getAvgCookieCount();
 alki.getAvgCookieCount();
 
 var stores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+
+var storeSalesDataEl = document.createElement('table');
+
+for (var row = 0; row < ;row++) { // Needed time from first store to display hours.
+  var timeRowEl = document.createElement('tr');
+  timeRowEl.textContent = firstAndPike.businessHours; // Needed time from first store to display hours.
+  storeSalesDataEl.appendChild(timeRowEl);
+}
+
+for (var storeIndex = 0; storeIndex < stores.length; storeIndex++) {
+  var tableRowEl = document.createElement('tr');
+  storeSalesDataEl.appendChild(tableRowEl);
+
+  var tableHeaderEl = document.createElement('th');
+  tableHeaderEl.textContent = stores[storeIndex].name;
+  tableRowEl.appendChild(tableHeaderEl);
+
+  for (var cookieData = 0; cookieData < stores[storeIndex].hourlyCookieCount.length; cookieData++){
+    var cookieCountEl = document.createElement('td');
+    cookieCountEl.textContent = stores[storeIndex].hourlyCookieCount[cookieData];
+    tableRowEl.appendChild(cookieCountEl);
+  }
+}
+
+
+
+var sectionEl = document.getElementById('cookieTableSection');
+sectionEl.appendChild(storeSalesDataEl);
 
 // var tableEl = document.createElement('table');  //Step 1 - Create Element
 //
@@ -58,4 +86,4 @@ var stores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 //
 // }
 
-document.body.appendChild(tableEl); // Step 2 - don't forgot to add element to the document
+// document.body.appendChild(tableEl); // Step 2 - don't forgot to add element to the document
