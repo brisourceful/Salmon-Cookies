@@ -26,6 +26,9 @@ CookieStore.prototype.renderRow = function () {
   tableHeaderEl.textContent = this.name;
   tableRowEl.appendChild(tableHeaderEl);
 
+  var tableFooterEl = document.createElement('tr');
+  storeSalesDataEl.appendChild(tableFooterEl);
+
   for (var cookieData = 0; cookieData < this.hourlyCookieSales.length; cookieData++){
     var cookieCountEl = document.createElement('td');
     cookieCountEl.textContent = this.hourlyCookieSales[cookieData];
@@ -65,34 +68,23 @@ function creatingHeaderRow () {
     timeHour.textContent = firstAndPike.businessHours[cell];
     timeRowEl.appendChild(timeHour);
   }
-};
+}
 
+function creatingHeaderRow () {
+  for (var cell = 0; cell < firstAndPike.businessHours.length; cell++) { // Needed time from first store to display hours.
+    var timeHour = document.createElement('td');
+    timeHour.textContent = firstAndPike.businessHours[cell];
+    timeRowEl.appendChild(timeHour);
+  }
+}
 creatingHeaderRow();
 
 for (var storeIndex = 0; storeIndex < stores.length; storeIndex++) {
   stores[storeIndex].renderRow();
 }
 
-  // var tableRowEl = document.createElement('tr');
-  // storeSalesDataEl.appendChild(tableRowEl);
-  //
-  // var tableHeaderEl = document.createElement('th');
-  // tableHeaderEl.textContent = stores[storeIndex].name;
-  // tableRowEl.appendChild(tableHeaderEl);
-  //
-  // for (var cookieData = 0; cookieData < stores[storeIndex].hourlyCookieSales.length; cookieData++){
-  //   var cookieCountEl = document.createElement('td');
-  //   cookieCountEl.textContent = stores[storeIndex].hourlyCookieSales[cookieData];
-  //   tableRowEl.appendChild(cookieCountEl);
-  // }
-  //
-  // var dailyLocationTotalEl = document.createElement('td');
-  // dailyLocationTotalEl.textContent = firstAndPike.totalCountForDay;
-  // tableRowEl.appendChild(dailyLocationTotalEl);
-
 var sectionEl = document.getElementById('cookie_table_section');
 sectionEl.appendChild(storeSalesDataEl);
-
 // console.log('----------------EVENTS LISTENERS------------------');
 //
 // var storeFormEl = document.getElementById('new-store-form');
