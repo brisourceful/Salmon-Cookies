@@ -7,15 +7,34 @@ function CookieStore (name, minCustomers, maxCustomers, avgCookies, hourlyCookie
   this.avgCookies = avgCookies;
   this.hourlyCookieSales = hourlyCookieSales || [];// assigning an empty array []
   this.totalCountForDay = 0;
-  this.businessHours = ['07am ', '08am ', '09am ', '010am ', '011am ', '12pm ', '01pm ', '02pm ', '03pm ', '04pm ', '05pm ','06pm ','07pm ', '08pm '];
+  this.businessHours = ['06am','07am ', '08am ', '09am ', '010am ', '011am ', '12pm ', '01pm ', '02pm ', '03pm ', '04pm ', '05pm ','06pm ','07pm ', '08pm ', 'Daily Location Total'];
 }
 
 CookieStore.prototype.getAvgCookieCount = function () { // Add method with a prototype
-  for (var hours = 0; hours < this.businessHours.length; hours++) {
+  for (var hours = 0; hours < this.businessHours.length - 1; hours++) {
     var avgCookiesPerhour = Math.floor(Math.random() * ((this.maxCustomers - this.minCustomers + 1) + this.minCustomers) * this.avgCookies);
     this.hourlyCookieSales.push(avgCookiesPerhour);
     this.totalCountForDay += avgCookiesPerhour;
   }
+};
+
+CookieStore.prototype.renderRow = function () {
+  var tableRowEl = document.createElement('tr');
+  storeSalesDataEl.appendChild(tableRowEl);
+
+  var tableHeaderEl = document.createElement('th');
+  tableHeaderEl.textContent = this.name;
+  tableRowEl.appendChild(tableHeaderEl);
+
+  for (var cookieData = 0; cookieData < this.hourlyCookieSales.length; cookieData++){
+    var cookieCountEl = document.createElement('td');
+    cookieCountEl.textContent = this.hourlyCookieSales[cookieData];
+    tableRowEl.appendChild(cookieCountEl);
+  }
+
+  var dailyLocationTotalEl = document.createElement('td');
+  dailyLocationTotalEl.textContent = this.totalCountForDay;
+  tableRowEl.appendChild(dailyLocationTotalEl);
 };
 
 var firstAndPike = new CookieStore('First and Pike Store', 23, 65, 6.3); // CookieStore is a new type of instance.
@@ -40,30 +59,36 @@ storeSalesDataEl.appendChild(timeRowEl);
 var blankCell = document.createElement('td');
 timeRowEl.appendChild(blankCell);
 
-for (var cell = 0; cell < firstAndPike.businessHours.length; cell++) { // Needed time from first store to display hours.
-  var timeHour = document.createElement('td');
-  timeHour.textContent = firstAndPike.businessHours[cell];
-  timeRowEl.appendChild(timeHour);
-}
+function creatingHeaderRow () {
+  for (var cell = 0; cell < firstAndPike.businessHours.length; cell++) { // Needed time from first store to display hours.
+    var timeHour = document.createElement('td');
+    timeHour.textContent = firstAndPike.businessHours[cell];
+    timeRowEl.appendChild(timeHour);
+  }
+};
+
+creatingHeaderRow();
 
 for (var storeIndex = 0; storeIndex < stores.length; storeIndex++) {
-  var tableRowEl = document.createElement('tr');
-  storeSalesDataEl.appendChild(tableRowEl);
-
-  var tableHeaderEl = document.createElement('th');
-  tableHeaderEl.textContent = stores[storeIndex].name;
-  tableRowEl.appendChild(tableHeaderEl);
-
-  for (var cookieData = 0; cookieData < stores[storeIndex].hourlyCookieSales.length; cookieData++){
-    var cookieCountEl = document.createElement('td');
-    cookieCountEl.textContent = stores[storeIndex].hourlyCookieSales[cookieData];
-    tableRowEl.appendChild(cookieCountEl);
-  }
-
-  var dailyLocationTotalEl = document.createElement('td');
-  dailyLocationTotalEl.textContent = firstAndPike.totalCountForDay;
-  tableRowEl.appendChild(dailyLocationTotalEl);
+  stores[storeIndex].renderRow();
 }
+
+  // var tableRowEl = document.createElement('tr');
+  // storeSalesDataEl.appendChild(tableRowEl);
+  //
+  // var tableHeaderEl = document.createElement('th');
+  // tableHeaderEl.textContent = stores[storeIndex].name;
+  // tableRowEl.appendChild(tableHeaderEl);
+  //
+  // for (var cookieData = 0; cookieData < stores[storeIndex].hourlyCookieSales.length; cookieData++){
+  //   var cookieCountEl = document.createElement('td');
+  //   cookieCountEl.textContent = stores[storeIndex].hourlyCookieSales[cookieData];
+  //   tableRowEl.appendChild(cookieCountEl);
+  // }
+  //
+  // var dailyLocationTotalEl = document.createElement('td');
+  // dailyLocationTotalEl.textContent = firstAndPike.totalCountForDay;
+  // tableRowEl.appendChild(dailyLocationTotalEl);
 
 var sectionEl = document.getElementById('cookie_table_section');
 sectionEl.appendChild(storeSalesDataEl);

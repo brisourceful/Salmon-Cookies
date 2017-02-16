@@ -6,3 +6,9 @@
 label, input {
   display: block;
 }
+
+table, tr, td {
+  border-color: black;
+  border-style: solid;
+
+}
