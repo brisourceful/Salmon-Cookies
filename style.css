@@ -1,4 +1,14 @@
-#header {
-  color: purple;
-  display: inline-block;
+#new-store-form {
+  width: 50%;
+  margin: auto;
+}
+
+label, input {
+  display: block;
+}
+
+table, tr, td {
+  border-color: black;
+  border-style: solid;
+
 }
