@@ -70,14 +70,8 @@ function creatingHeaderRow () {
   }
 }
 
-function creatingHeaderRow () {
-  for (var cell = 0; cell < firstAndPike.businessHours.length; cell++) { // Needed time from first store to display hours.
-    var timeHour = document.createElement('td');
-    timeHour.textContent = firstAndPike.businessHours[cell];
-    timeRowEl.appendChild(timeHour);
-  }
-}
 creatingHeaderRow();
+
 
 for (var storeIndex = 0; storeIndex < stores.length; storeIndex++) {
   stores[storeIndex].renderRow();
@@ -85,55 +79,29 @@ for (var storeIndex = 0; storeIndex < stores.length; storeIndex++) {
 
 var sectionEl = document.getElementById('cookie_table_section');
 sectionEl.appendChild(storeSalesDataEl);
-// console.log('----------------EVENTS LISTENERS------------------');
-//
-// var storeFormEl = document.getElementById('new-store-form');
-//
-// storeFormEl.addEventListener('submit', handleSubmit);
-//
-// function handleSubmit(event){
-//   event.preventDefault();
-//   event.stopPropagation();
-//   var name = event.target.cookieStoreName.value;
-//   var minCustomers = parseInt(event.target.minCust.value);
-//   var masCustomers = parseInt(event.target.maxCust.value);
-//   var avgCookies = parseInt(event.target.avgCookies.value);
-//
-//   // console.log(name);
-//   // console.log(minCustomers);
-//   // console.log(maxCustomers);
-//
-//   var store = new CookieStore(name,minCustomers, maxCustomers, avgCookies);
-//
-//   stores.push(store);
-//
-//   console.log(store);
-// }
-//
-// // var tableEl = document.createElement('table');  //Step 1 - Create Element
-// //
-// // for (var i = 0; i < stores.length; i++){
-// //   var currentStore = store[i];
-// //
-// //   var rowEl = document.createElement('tr'); //Step 3 - Create elements to loop through.
-// //   tableEl.appendChild(nameEl);
-// //
-// //   var nameEl = document.createElement('th'); // 'th' tag to create a heading
-// //   nameEl.textContent = currentStore.name;
-// //   rowEl.appendChild(nameEl);
-// //
-// //   var minCustEl = document.createElement('td');
-// //   minCustEl.textContent = currentStore.minCustomers;
-// //   rowEl.appendChild(minCustEl);
-// //
-// //   var maxCustEl = document.createElement('td');
-// //   maxCustEl.textContent = currentStore.maxCustomers;
-// //   rowEl.appendChild(maxCustEl);
-// //
-// //   var avgCookiesEl = document.createElement('td');
-// //   avgCookiesEl.textContent = currentStore.avgCookies;
-// //   rowEl.appendChild(avgCookiesEl);
-// //
-// // }
-//
-// // document.body.appendChild(tableEl); // Step 2 - don't forgot to add element to the document
+
+console.log('----------------EVENTS LISTENERS------------------');
+
+var storeFormEl = document.getElementById('new-store-form');
+
+storeFormEl.addEventListener('submit', handleSubmit);
+
+function handleSubmit(event){
+  event.preventDefault();
+  event.stopPropagation();
+
+  console.log(event);
+
+  var name = event.target.cookieStoreName.value;
+  var minCustomers = parseInt(event.target.minCust.value);
+  var maxCustomers = parseInt(event.target.maxCust.value);
+  var avgCookies = parseInt(event.target.avgCookies.value);
+
+  var store = new CookieStore(name,minCustomers, maxCustomers, avgCookies);
+
+  stores.push(store);
+  store.getAvgCookieCount();
+  store.renderRow();
+
+  console.log(store);
+}
