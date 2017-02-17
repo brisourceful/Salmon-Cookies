@@ -1,5 +1,18 @@
 'use strict';
 
+var storeSalesDataEl = document.createElement('table');
+
+var timeRowEl = document.createElement('tr');
+storeSalesDataEl.appendChild(timeRowEl);
+
+var blankCell = document.createElement('td');
+timeRowEl.appendChild(blankCell);
+
+var sectionEl = document.getElementById('cookie_table_section');
+sectionEl.appendChild(storeSalesDataEl);
+
+var businessHours = ['06am','07am ', '08am ', '09am ', '010am ', '011am ', '12pm ', '01pm ', '02pm ', '03pm ', '04pm ', '05pm ','06pm ','07pm ', '08pm '];
+
 function CookieStore (name, minCustomers, maxCustomers, avgCookies, hourlyCookieSales) { // this is a constructor function taking in 4 parameters.
   this.name = name || 'Unknown'; // adding || (or) inputs a value if it doesn't meet true.
   this.minCustomers = minCustomers;  // the context of this is going to change. The keyword 'this' knows what it represents by the surrounding context
@@ -7,11 +20,11 @@ function CookieStore (name, minCustomers, maxCustomers, avgCookies, hourlyCookie
   this.avgCookies = avgCookies;
   this.hourlyCookieSales = hourlyCookieSales || [];// assigning an empty array []
   this.totalCountForDay = 0;
-  this.businessHours = ['06am','07am ', '08am ', '09am ', '010am ', '011am ', '12pm ', '01pm ', '02pm ', '03pm ', '04pm ', '05pm ','06pm ','07pm ', '08pm ', 'Daily Location Total'];
+  this.businessHours = businessHours;
 }
 
 CookieStore.prototype.getAvgCookieCount = function () { // Add method with a prototype
-  for (var hours = 0; hours < this.businessHours.length - 1; hours++) {
+  for (var hours = 0; hours < this.businessHours.length; hours++) {
     var avgCookiesPerhour = Math.floor(Math.random() * ((this.maxCustomers - this.minCustomers + 1) + this.minCustomers) * this.avgCookies);
     this.hourlyCookieSales.push(avgCookiesPerhour);
     this.totalCountForDay += avgCookiesPerhour;
@@ -40,27 +53,41 @@ CookieStore.prototype.renderRow = function () {
   tableRowEl.appendChild(dailyLocationTotalEl);
 };
 
+function totalHourlLocSales() {
+  var totalHourlySales = [];
+  for (var hours = 0; hours < businessHours.length; hours++){
+    var hourlyTotal = 0;
+    for (var hourlySales = 0; hourlySales < stores.length; hourlySales++) {
+      hourlyTotal += stores[hourlySales].hourlyCookieSales[hours];
+    }
+    totalHourlySales.push(hourlyTotal);
+  }
+  return totalHourlySales;
+}
+
+function hourLocSalesRow(){
+  var totalHourlySales = totalHourlLocSales();
+  var totalHourlyRowEl = document.createElement('tr');
+  storeSalesDataEl.appendChild(totalHourlyRowEl);
+  for (var i = 0; i < totalHourlySales.length; i++) {
+    var totalHourlyDataEl = document.createElement('td');
+    totalHourlyDataEl.textContent = totalHourlySales[i];
+    totalHourlyRowEl.appendChild(totalHourlyDataEl);
+  }
+}
+
 var firstAndPike = new CookieStore('First and Pike Store', 23, 65, 6.3); // CookieStore is a new type of instance.
 var seaTacAirport = new CookieStore('SeaTac Airport Store', 3, 24, 1.2); // Now, two new instances of CookieStore.
 var seattleCenter = new CookieStore('Seattle Center Store', 11, 38, 3.7);
 var capitolHill = new CookieStore('Capitol Hill Store', 20, 38, 2.3);
 var alki = new CookieStore('Alki Store', 2, 16, 4.6);
-
-firstAndPike.getAvgCookieCount();
-seaTacAirport.getAvgCookieCount();
-seattleCenter.getAvgCookieCount();
-capitolHill.getAvgCookieCount();
-alki.getAvgCookieCount();
-
 var stores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
-var storeSalesDataEl = document.createElement('table');
-
-var timeRowEl = document.createElement('tr');
-storeSalesDataEl.appendChild(timeRowEl);
-
-var blankCell = document.createElement('td');
-timeRowEl.appendChild(blankCell);
+function allStoresCookieData () {
+  for (var allStores = 0; allStores < stores.length; allStores++){
+    stores[allStores].getAvgCookieCount();
+  }
+};
 
 function creatingHeaderRow () {
   for (var cell = 0; cell < firstAndPike.businessHours.length; cell++) { // Needed time from first store to display hours.
@@ -68,17 +95,26 @@ function creatingHeaderRow () {
     timeHour.textContent = firstAndPike.businessHours[cell];
     timeRowEl.appendChild(timeHour);
   }
+  var dailyLocationTotalEl = document.createElement('td');
+  timeRowEl.appendChild(dailyLocationTotalEl);
+  dailyLocationTotalEl.textContent = 'Daily Location Sales';
 }
 
-creatingHeaderRow();
+function createRowsForStores() {
+  for (var storeIndex = 0; storeIndex < stores.length; storeIndex++) {
+    stores[storeIndex].renderRow();
+  }
+};
 
-
-for (var storeIndex = 0; storeIndex < stores.length; storeIndex++) {
-  stores[storeIndex].renderRow();
+function drawTable() {
+  creatingHeaderRow();
+  createRowsForStores();
+  hourLocSalesRow();
 }
 
-var sectionEl = document.getElementById('cookie_table_section');
-sectionEl.appendChild(storeSalesDataEl);
+allStoresCookieData();
+totalHourlLocSales();
+drawTable();
 
 console.log('----------------EVENTS LISTENERS------------------');
 
