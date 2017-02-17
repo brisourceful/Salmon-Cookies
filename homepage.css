@@ -1,3 +1,22 @@
+head {
+}
+
 .salmon-header {
-  margin-left: 50px:
+  image-resolution: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.navigation li {
+  display: inline;
+  text-align: center;
+  margin: 0px;
+  list-style: none;
+  color: black;
+  text-decoration: none;
+  background-color: #FF5D5D
+}
+
+ul {
+  padding: 0;
 }
