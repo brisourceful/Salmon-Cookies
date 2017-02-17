@@ -11,7 +11,7 @@ timeRowEl.appendChild(blankCell);
 var sectionEl = document.getElementById('cookie_table_section');
 sectionEl.appendChild(storeSalesDataEl);
 
-var businessHours = ['06am','07am ', '08am ', '09am ', '010am ', '011am ', '12pm ', '01pm ', '02pm ', '03pm ', '04pm ', '05pm ','06pm ','07pm ', '08pm '];
+var businessHours = ['06am','07am ', '08am ', '09am ', '10am ', '11am ', '12pm ', '01pm ', '02pm ', '03pm ', '04pm ', '05pm ','06pm ','07pm ', '08pm '];
 
 function CookieStore (name, minCustomers, maxCustomers, avgCookies, hourlyCookieSales) { // this is a constructor function taking in 4 parameters.
   this.name = name || 'Unknown'; // adding || (or) inputs a value if it doesn't meet true.
@@ -68,7 +68,11 @@ function totalHourlLocSales() {
 function hourLocSalesRow(){
   var totalHourlySales = totalHourlLocSales();
   var totalHourlyRowEl = document.createElement('tr');
+  totalHourlyRowEl.setAttribute('id', 'hourRow');
   storeSalesDataEl.appendChild(totalHourlyRowEl);
+  var hourLocSalesRowHeader = document.createElement('th');
+  hourLocSalesRowHeader.textContent = 'Totals';
+  totalHourlyRowEl.appendChild(hourLocSalesRowHeader);
   for (var i = 0; i < totalHourlySales.length; i++) {
     var totalHourlyDataEl = document.createElement('td');
     totalHourlyDataEl.textContent = totalHourlySales[i];
@@ -137,7 +141,10 @@ function handleSubmit(event){
 
   stores.push(store);
   store.getAvgCookieCount();
+  var hourRow = document.getElementById('hourRow');
+  hourRow.parentNode.removeChild(hourRow);
   store.renderRow();
+  hourLocSalesRow();
 
   console.log(store);
 }

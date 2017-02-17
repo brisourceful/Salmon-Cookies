@@ -7,7 +7,7 @@ label, input {
   display: block;
 }
 
-table, tr, td {
+table, tr {
   border-color: black;
   border-style: solid;
 
