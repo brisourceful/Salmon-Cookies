@@ -1,6 +1,19 @@
 head {
 }
 
+h2 {
+  font-family: 'Playfair Display SC', serif;
+  font-size: 40px;
+  text-align: center;
+}
+h4 {
+  margin: 0;
+}
+
+p {
+  font-family: 'Playfair Display', serif;
+}
+
 .salmon-header {
   image-resolution: 50%;
   display: block;
@@ -13,7 +26,7 @@ head {
   list-style: none;
   color: black;
   text-decoration: none;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display SC', serif;
   font-style: bold;
   font-size: 20px;
   padding: 14px 30px;
@@ -32,4 +45,18 @@ ul {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.Salmon-Cookies-Pictures {
+  height: 25%;
+  width: 25%;
+}
+
+#cookie-list {
+  display: inline-block;
+  padding:
+}
+
+#locations {
+
 }
