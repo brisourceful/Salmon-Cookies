@@ -1,0 +1,25 @@
+
+.header {
+  height: 75px;
+  width: auto;
+  border: solid;
+  border-color: black;
+  }
+
+  .logo-social {
+    height:60px;
+    width: auto;
+    margin-top: 15px;
+    border-color: black;
+    border: solid;
+  }
+
+  .logo {
+    margin-top: 5px;
+    display: block;
+  }
+
+.fork-logo {
+
+}
+  font-family: 'Yellowtail', cursive;
